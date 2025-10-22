@@ -1,18 +1,19 @@
 package agents;
 
+import behaviours.DetectionMouvementBehaviour;
 import jade.core.Agent;
 
 public class CapteurMouvementAgent extends Agent {
-
-    private int nombreDetections = 0;
+    private DetectionMouvementBehaviour comportement;
 
     protected void setup() {
-        // TODO: Ajouter un CyclicBehaviour ou TickerBihavior
+        System.out.println("Agent " + getLocalName() + " démarré.");
+        comportement = new DetectionMouvementBehaviour(this);
+        addBehaviour(comportement);
     }
 
-    // Méthode pour simulier la détection
-    private boolean detecterMouement() {
-        return Math.random() < 0.4; // 40% de chance
+    protected void takeDown() {
+        System.out.println("Agent " + getLocalName() + " terminé. Total détections: " +
+                (comportement != null ? comportement.getNombreDetections() : 0));
     }
-
 }
